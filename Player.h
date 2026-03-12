@@ -19,7 +19,7 @@ public:
     int GetAttackDamage();
     int GetCooldown();
     int GetTotalAttacksCount();
-    Attacks GetCharacterAttacks();
+    Attacks& GetCharacterAttacks();
     Attack GetChosenAttack(int attackChoice);
     void ShowPlayerInfo();
     void ShowAttacksInfo();
@@ -28,6 +28,19 @@ public:
     void TakeDamage(int amount);
     void HealUp();
     void HealUp(int healthToHeal);
+
+    // Status effects
+    void ApplyStatusEffect(string effect, int duration, int dmgPerTurn);
+    void ProcessStatusEffects();
+    bool IsStunned();
+    void ClearStatusEffects();
+    string GetActiveStatusEffect();
+    int GetStatusTurnsRemaining();
+
+    // Cooldown pass-throughs
+    void TickAllCooldowns();
+    bool IsAttackReady(int assignedNum);
+    void PutAttackOnCooldown(int assignedNum);
 
     Player();
     /// <summary>
@@ -59,6 +72,12 @@ private:
     int characterChoice;
     //bool dead = false;
     Attacks playerAttacks;
+
+    // Status effect tracking
+    string activeStatusEffect = "none";
+    int statusTurnsRemaining = 0;
+    int statusDmgPerTurn = 0;
+    bool stunned = false;
 };
 
 #endif //TEXTBASED_FIGHTING_PLAYER_H

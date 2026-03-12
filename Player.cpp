@@ -10,9 +10,6 @@ Player::Player() {
     playerCooldown = 0;
     characterChoice = 0;
 
-    playerAttacks;
-
-    Attack attack1 = Attack();
 }
 
 Player::Player(string name, int health, int damage, int cooldown, int choice) {
@@ -58,7 +55,7 @@ int Player::GetCooldown() {
     return playerCooldown;
 }
 
-Attacks Player::GetCharacterAttacks() {
+Attacks& Player::GetCharacterAttacks() {
     return playerAttacks;
 }
 
@@ -150,3 +147,55 @@ void Player::HealUp(int healthToHeal) {
         }
     }
 }
+
+// Status effects
+void Player::ApplyStatusEffect(string effect, int duration, int dmgPerTurn) {
+    activeStatusEffect = effect;
+    statusTurnsRemaining = duration;
+    statusDmgPerTurn = dmgPerTurn;
+    if (effect == "stun") stunned = true;
+}
+
+void Player::ProcessStatusEffects() {
+    stunned = false;
+    if (activeStatusEffect == "none" || statusTurnsRemaining <= 0) {
+        activeStatusEffect = "none";
+        return;
+    }
+
+    if (activeStatusEffect == "bleed" || activeStatusEffect == "poison") {
+        cout << "\t* " << playerName << " takes " << statusDmgPerTurn
+             << " " << activeStatusEffect << " damage! *" << endl;
+        TakeDamage(statusDmgPerTurn);
+        this_thread::sleep_for(chrono::seconds(1));
+    }
+    else if (activeStatusEffect == "stun") {
+        cout << "\t* " << playerName << " is STUNNED and cannot act! *" << endl;
+        stunned = true;
+        this_thread::sleep_for(chrono::seconds(2));
+    }
+
+    statusTurnsRemaining--;
+    if (statusTurnsRemaining <= 0) {
+        cout << "\t* " << activeStatusEffect << " has worn off " << playerName << " *" << endl;
+        activeStatusEffect = "none";
+        this_thread::sleep_for(chrono::seconds(1));
+    }
+}
+
+bool Player::IsStunned() { return stunned; }
+
+void Player::ClearStatusEffects() {
+    activeStatusEffect = "none";
+    statusTurnsRemaining = 0;
+    statusDmgPerTurn = 0;
+    stunned = false;
+}
+
+string Player::GetActiveStatusEffect() { return activeStatusEffect; }
+int Player::GetStatusTurnsRemaining() { return statusTurnsRemaining; }
+
+// Cooldown pass-throughs
+void Player::TickAllCooldowns() { playerAttacks.TickAllCooldowns(); }
+bool Player::IsAttackReady(int assignedNum) { return playerAttacks.IsAttackReady(assignedNum); }
+void Player::PutAttackOnCooldown(int assignedNum) { playerAttacks.PutAttackOnCooldown(assignedNum); }

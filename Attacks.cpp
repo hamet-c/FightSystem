@@ -35,7 +35,7 @@ void Attacks::AssignAttacks(int attackAmount) {
 
 void Attacks::AssignAttacks(vector<Attack> attacksToAssign) {
 	attacks = attacksToAssign;
-	numOfAttacks += attacksToAssign.size();
+	numOfAttacks = attacksToAssign.size();
 }
 
 /// <summary>
@@ -89,7 +89,7 @@ vector<Attack> Attacks::GetAttacks() {
 }
 
 void Attacks::DisplayAttacksInfo() {
-	
+
 	cout << endl << endl;
 	cout << "\t -- MOVESET --" << endl;
 	cout << endl;
@@ -97,4 +97,37 @@ void Attacks::DisplayAttacksInfo() {
 		attacks.at(i).ShowAttackInfo();
 	}
 	cout << endl << endl;
+}
+
+void Attacks::TickAllCooldowns() {
+	for (int i = 0; i < (int)attacks.size(); i++) {
+		attacks[i].TickCooldown();
+	}
+}
+
+bool Attacks::IsAttackReady(int assignedNum) {
+	for (int i = 0; i < (int)attacks.size(); i++) {
+		if (attacks[i].GetAssignedNum() == assignedNum) {
+			return attacks[i].IsReady();
+		}
+	}
+	return true;
+}
+
+void Attacks::PutAttackOnCooldown(int assignedNum) {
+	for (int i = 0; i < (int)attacks.size(); i++) {
+		if (attacks[i].GetAssignedNum() == assignedNum) {
+			attacks[i].SetCurrentCooldown(attacks[i].GetCooldownTurns());
+			return;
+		}
+	}
+}
+
+Attack& Attacks::GetAttackRef(int assignedNum) {
+	for (int i = 0; i < (int)attacks.size(); i++) {
+		if (attacks[i].GetAssignedNum() == assignedNum) {
+			return attacks[i];
+		}
+	}
+	return attacks[0];
 }

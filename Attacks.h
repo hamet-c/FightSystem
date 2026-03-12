@@ -16,10 +16,15 @@ public:
 
 	void DisplayAttacksInfo();
 
+	// Cooldown management
+	void TickAllCooldowns();
+	bool IsAttackReady(int assignedNum);
+	void PutAttackOnCooldown(int assignedNum);
+	Attack& GetAttackRef(int assignedNum);
+
 private:
 	vector<Attack> attacks;
 	int numOfAttacks = 0;
 };
 
 #endif // !ATTACKS_H
-

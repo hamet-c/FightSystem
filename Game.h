@@ -21,6 +21,8 @@ public:
 	void Waiting();
 	void WriteSentenceNoEndl(string sentence);
 	bool StoryModeFight(Player PlayerCharacter, Player EnemyChar);
+	bool BossFight(Player& hero, Player& boss, bool lightningAbsorbed);
+	int ChooseEnemyAttack(Player& attacker, Player& target);
 private:
 	Player chosenPlayer; // character choice of player
 	Player enemy;

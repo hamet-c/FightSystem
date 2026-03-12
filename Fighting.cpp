@@ -1,5 +1,3 @@
-// Fighting.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
 #include "SwordArt.h"
 #include <iostream>
 #include "Attack.h"
@@ -10,10 +8,14 @@
 #include "TrialOne.h"
 #include "TrialTwo.h"
 #include "TrialThree.h"
+#include "FinalBoss.h"
+#include <ctime>
+#include <cstdlib>
 using namespace std;
 
 int WorthinessScore = 0;
 int main() {
+    srand(time(0));
     Game space;
     cout << "Hello Player this game is a turned based fighting game where you choose a hero and fight against villains." << endl;
     cout << "You can also play the story mode if you want more than just the fighting aspect." << endl;
@@ -60,40 +62,77 @@ int main() {
         Choice = Prologue(playerName);
         Player customPlayer = Player(playerName, 100, 2, 0, 0);
         if (Choice == 1) {
+            // Thunder Fang (Sword) path
             Attacks customAttacks;
             Attack runAway = Attack();
-            Attack punch = Attack("Punch", 5, 3);
             customAttacks.AssignAttack(runAway);
+
+            Attack punch("Punch", 5, "A quick punch", 3);
+            punch.SetMinDamage(4); punch.SetMaxDamage(6);
             customAttacks.AssignAttack(punch);
 
-            customAttacks.AssignAttack("Spark Slash", 12,"Chance to apply lighting damage(enemy takes 10 damage for 2 turns)", 4);
-            customAttacks.AssignAttack("Chain Lightning", 18, "A bolt that arcs to multiple foes, chance to stun enemy", 5);
-            customAttacks.AssignAttack("Thunder Nova", 25, "A burst of storm energy around the wielder, chance to parry/block enemies attack", 6);
+            Attack sparkSlash("Spark Slash", 12, "A lightning-charged sword slash that sears the enemy", 4);
+            sparkSlash.SetMinDamage(10); sparkSlash.SetMaxDamage(15);
+            sparkSlash.SetIsLightning(true);
+            sparkSlash.SetStatusEffect("bleed"); sparkSlash.SetStatusDuration(2); sparkSlash.SetStatusDamagePerTurn(3);
+            customAttacks.AssignAttack(sparkSlash);
+
+            Attack chainLightning("Chain Lightning", 18, "A bolt of lightning that arcs between foes, chance to stun", 5);
+            chainLightning.SetMinDamage(15); chainLightning.SetMaxDamage(22);
+            chainLightning.SetIsLightning(true);
+            chainLightning.SetCooldownTurns(1);
+            chainLightning.SetStatusEffect("stun"); chainLightning.SetStatusDuration(1);
+            customAttacks.AssignAttack(chainLightning);
+
+            Attack thunderNova("Thunder Nova", 25, "A massive burst of storm energy radiates from the blade", 6);
+            thunderNova.SetMinDamage(22); thunderNova.SetMaxDamage(30);
+            thunderNova.SetIsLightning(true);
+            thunderNova.SetCooldownTurns(2);
+            thunderNova.SetCritChance(0.20f);
+            customAttacks.AssignAttack(thunderNova);
 
             customPlayer.AssignPlayerAttacks(customAttacks);
 
-
             cout << endl << "NEW MOVES" << endl;
             cout << "\t  1) Default Attack" << endl;
-            cout << "\t  - Damage: " << customPlayer.GetAttackDamage();
+            cout << "\t  - Damage: " << customPlayer.GetAttackDamage() << endl;
             customPlayer.ShowAttacksInfo();
         }
         else if (Choice == 2) {
+            // Sky Piercers (Daggers) path
             Attacks customAttacks;
             Attack runAway = Attack();
-            Attack punch = Attack("Punch", 5, 3);
             customAttacks.AssignAttack(runAway);
+
+            Attack punch("Punch", 5, "A quick jab", 3);
+            punch.SetMinDamage(4); punch.SetMaxDamage(6);
             customAttacks.AssignAttack(punch);
 
-            customAttacks.AssignAttack("Piercing Stab", 10, 4);
-            customAttacks.AssignAttack("Lightning Overdriver", 15, "Plant your daggers into the floor channeling lightning through them (chance to damage yourself)", 5);
-            customAttacks.AssignAttack("Shadow Step", 22, "Dash and disappear before striking the enemy from behind", 6);
+            Attack piercingStab("Piercing Stab", 10, "A rapid dual-dagger thrust", 4);
+            piercingStab.SetMinDamage(8); piercingStab.SetMaxDamage(13);
+            piercingStab.SetCritChance(0.20f);
+            customAttacks.AssignAttack(piercingStab);
+
+            Attack lightningOverdriver("Lightning Overdriver", 15, "Channel lightning through the daggers into the ground, shocking the enemy", 5);
+            lightningOverdriver.SetMinDamage(12); lightningOverdriver.SetMaxDamage(20);
+            lightningOverdriver.SetIsLightning(true);
+            lightningOverdriver.SetCooldownTurns(1);
+            lightningOverdriver.SetStatusEffect("stun"); lightningOverdriver.SetStatusDuration(1);
+            customAttacks.AssignAttack(lightningOverdriver);
+
+            Attack shadowStep("Shadow Step", 22, "Vanish and strike from behind with electrified blades", 6);
+            shadowStep.SetMinDamage(18); shadowStep.SetMaxDamage(26);
+            shadowStep.SetIsLightning(true);
+            shadowStep.SetCooldownTurns(2);
+            shadowStep.SetCritChance(0.25f);
+            shadowStep.SetStatusEffect("bleed"); shadowStep.SetStatusDuration(2); shadowStep.SetStatusDamagePerTurn(4);
+            customAttacks.AssignAttack(shadowStep);
 
             customPlayer.AssignPlayerAttacks(customAttacks);
 
             cout << endl << "NEW MOVES" << endl;
             cout << "\t  1) Default Attack" << endl;
-            cout << "\t  - Damage: " << customPlayer.GetAttackDamage();
+            cout << "\t  - Damage: " << customPlayer.GetAttackDamage() << endl;
             customPlayer.ShowAttacksInfo();
         }
     cout << "Shadow Being: In order to prove your worthiness you must go through 3 trials that will test your skills" << endl;
@@ -135,9 +174,7 @@ int main() {
             cout << "GAME OVER" << endl;
         }
         else {
-            cout << "Shadow Being: You have proven your worthiness hero." << endl;
-            cout << "Shadow Being: You are now ready to face the evil that threatens this world." << endl;
-            cout <<"TO BE CONTINUED.." << endl;
+            FinalBossSequence(T3, customPlayer, Choice);
         }
     }
 

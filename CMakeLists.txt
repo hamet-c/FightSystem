@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 4.1)
+cmake_minimum_required(VERSION 3.14)
 project(CS_Final)
 
 set(CMAKE_CXX_STANDARD 14)
@@ -23,5 +23,7 @@ add_executable(CS_Final
         TrialOne.h
         TrialTwo.h
         "TrialThree.h"
-        TrialThree.cpp)
+        TrialThree.cpp
+        FinalBoss.h
+        FinalBoss.cpp)
 
