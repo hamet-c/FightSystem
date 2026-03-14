@@ -9,11 +9,11 @@ bool TrialTwo() {
     cout << "Welcome to the second trial. In this trial you must navigate through a maze." << endl;
     cout << "Only by reaching the end of the maze may you proceed to trial three." << endl;
     cout << "Be careful though, if you make a wrong turn you will be sent back to the start." << endl;
-    this_thread::sleep_for(chrono::seconds(2));
+    Game::NarratePause("Be careful though, if you make a wrong turn you will be sent back to the start.");
     cout << "*You find yourself at the entrance of a dark maze. You can barely see anything*" << endl;
-    this_thread::sleep_for(chrono::seconds(2));
+    Game::NarratePause("You find yourself at the entrance of a dark maze. You can barely see anything");
     cout << "To navigate the maze, type 'left' or 'right' to choose your direction at each turn." << endl;
-    this_thread::sleep_for(chrono::seconds(2));
+    Game::NarratePause("To navigate the maze, type left or right to choose your direction at each turn.");
     for (int i = 0; i < MazeDirections.size(); ) {
         cout << "Which direction do you choose? (left/right): ";
         cin >> playerDirection;
@@ -28,7 +28,7 @@ bool TrialTwo() {
             cout << "Wrong turn! You blink and find yourself back at the entrance of the maze." << endl;
             i = 0;
         }
-        this_thread::sleep_for(chrono::seconds(1));
+        Game::FightPause(700);
     }
     if (attempts > 20) {
         return false;

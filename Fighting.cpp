@@ -35,7 +35,7 @@ int main() {
         cout << "You have chosen Fighting Mode" << endl;
         fightingGame.SpaceMed();
 
-        this_thread::sleep_for(chrono::seconds(2));
+        Game::FightPause(1000);
 
         while (playAgain) {
             fightingGame.SpaceMed();
@@ -136,10 +136,10 @@ int main() {
             customPlayer.ShowAttacksInfo();
         }
     cout << "Shadow Being: In order to prove your worthiness you must go through 3 trials that will test your skills" << endl;
-    this_thread::sleep_for(chrono::seconds(2));
+    Game::NarratePause("Shadow Being: In order to prove your worthiness you must go through 3 trials that will test your skills");
         cout << "To begin walk through that door" << endl;
         cout << "*The being bangs his staff on the ground again and a door materializes in front of you*" << endl;
-        this_thread::sleep_for(chrono::seconds(4));
+        Game::NarratePause("*The being bangs his staff on the ground again and a door materializes in front of you*", 500);
         space.SpaceMax();
         cout << "Trial One...." << endl;
         bool check1 = TrialOne();
@@ -164,12 +164,12 @@ int main() {
         }
 
         cout << "Shadow Being: You have completed the trials." << endl;
-        this_thread::sleep_for(chrono::seconds(2));
+        Game::NarratePause("Shadow Being: You have completed the trials.");
         if (WorthinessScore < 70) {
             cout << "Shadow Being: You are not a worthy successor of the Thunderborn name " << endl;
             cout << "Shadow Being: Begone from my sight." << endl;
             cout << "*The being raises his staff and a the floor opens up below of you, you fall for what seems to be an eternity*" << endl;
-            this_thread::sleep_for(chrono::seconds(2));
+            Game::NarratePause("*The being raises his staff and a the floor opens up below of you, you fall for what seems to be an eternity*");
             cout << "You wake up in a forest with no memory of how you got there..." << endl;
             cout << "GAME OVER" << endl;
         }

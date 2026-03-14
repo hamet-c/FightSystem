@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Game.h"
 #include <chrono>
 #include <thread>
 
@@ -124,7 +125,7 @@ void Player::HealUp() {
         AssignPlayerHealth(healUp + currHealth);
         cout << endl;
         cout << GetName() << "'s health recuperated to " << GetHealth() << " by " << healUp << " hp";
-        this_thread::sleep_for(chrono::seconds(3));
+        Game::FightPause(1200);
         cout << endl;
     }
     else {
@@ -139,7 +140,7 @@ void Player::HealUp(int healthToHeal) {
             AssignPlayerHealth(healthToHeal + currHealth);
             cout << endl;
             cout << GetName() << "'s health recuperated to " << GetHealth() << " by " << healthToHeal << " hp";
-            this_thread::sleep_for(chrono::seconds(3));
+            Game::FightPause(1200);
             cout << endl;
         }
         else {
@@ -167,19 +168,19 @@ void Player::ProcessStatusEffects() {
         cout << "\t* " << playerName << " takes " << statusDmgPerTurn
              << " " << activeStatusEffect << " damage! *" << endl;
         TakeDamage(statusDmgPerTurn);
-        this_thread::sleep_for(chrono::seconds(1));
+        Game::FightPause(800);
     }
     else if (activeStatusEffect == "stun") {
         cout << "\t* " << playerName << " is STUNNED and cannot act! *" << endl;
         stunned = true;
-        this_thread::sleep_for(chrono::seconds(2));
+        Game::FightPause(1000);
     }
 
     statusTurnsRemaining--;
     if (statusTurnsRemaining <= 0) {
         cout << "\t* " << activeStatusEffect << " has worn off " << playerName << " *" << endl;
         activeStatusEffect = "none";
-        this_thread::sleep_for(chrono::seconds(1));
+        Game::FightPause(800);
     }
 }
 

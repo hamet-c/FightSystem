@@ -7,6 +7,17 @@
 
 using namespace std;
 
+void Game::FightPause(int ms) {
+	this_thread::sleep_for(chrono::milliseconds(ms));
+}
+
+void Game::NarratePause(const string& text, int extraMs) {
+	int delay = 800 + (int)(text.length() * 30) + extraMs;
+	if (delay < 1000) delay = 1000;
+	if (delay > 5000) delay = 5000;
+	this_thread::sleep_for(chrono::milliseconds(delay));
+}
+
 Game::Game() {
 	Players defaults = Players();
 	heroes = defaults.GetDefaultHeroes();
@@ -35,7 +46,7 @@ void Game::FightingScenario1() {
 
 void Game::PlayGame() {
 	enemySpares = rand() % 2; //  0  OR 1  //
-	this_thread::sleep_for(chrono::seconds(1));
+	FightPause(500);
 	//enemyPleads = rand() % 2;
 	//cout << enemySpares << endl;
 
@@ -72,22 +83,22 @@ void Game::PlayGame() {
 void Game::Intro() {
 	cout << "Choose your hero by number" << endl;
 
-	this_thread::sleep_for(chrono::seconds(3));
+	FightPause(1000);
 	cout << "---------------------------" << endl;
-	this_thread::sleep_for(chrono::seconds(1));
+	FightPause(300);
 	cout << endl;
 
 	for (int i = 0; i < heroes.size() - 1; ++i) {// this allows us to not show the hidden characters
 
 		cout << "\t\t   { " << i << " }";
 		heroes.at(i).ShowPlayerInfo();
-		this_thread::sleep_for(chrono::seconds(1));
+		FightPause(200);
 		cout << "---------";
-		this_thread::sleep_for(chrono::seconds(1));
+		FightPause(200);
 		cout << "------------";
-		this_thread::sleep_for(chrono::seconds(1));
+		FightPause(200);
 		cout << "------" << endl;
-		this_thread::sleep_for(chrono::seconds(2));
+		FightPause(800);
 
 	}
 
@@ -146,7 +157,7 @@ void Game::Intro() {
 	cout << endl;
 	cout << endl << endl;
 	
-	this_thread::sleep_for(chrono::seconds(6));
+	FightPause(2500);
 }
 
 void Game::RunTheFights() {
@@ -164,7 +175,7 @@ void Game::RunTheFights() {
 		if (enemy.GetHealth() <= 15) {
 			enemyPleads = true;
 			enemy.GetCharacterAttacks().AssignAttack("Plead", 0, "Maybe he'll let me live", chosenPlayer.GetTotalAttacksCount() + 1); // makes a new attack
-			this_thread::sleep_for(chrono::seconds(3));
+			FightPause(1500);
 		}
 
 
@@ -174,7 +185,7 @@ void Game::RunTheFights() {
 			SpaceMed();
 
 			cout << "'Will you plead for your life?'" << endl;
-			this_thread::sleep_for(chrono::seconds(4));
+			FightPause(1500);
 			WriteSentenceNoEndl("Enter (1) - Yes or (0) - No: ");
 
 			int decision;
@@ -209,12 +220,12 @@ void Game::TimeToAttack() {
 	}
 	cout << endl;
 
-	this_thread::sleep_for(chrono::seconds(1));
+	FightPause(800);
 
 	cout << endl;
 	cout << "    *[ It's your turn to attack, pick one of your available actions ]*" << endl;
 	cout << endl << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	FightPause(1000);
 
 	cout << "    Available actions" << endl << endl;
 	cout << "\t  1) Default Attack" << endl;
@@ -228,7 +239,7 @@ void Game::TimeToAttack() {
 	// Check if attack is on cooldown
 	if (actionChoice > 1 && !chosenPlayer.IsAttackReady(actionChoice)) {
 		cout << endl << "That attack is on cooldown! You hesitate and lose your turn." << endl;
-		this_thread::sleep_for(chrono::seconds(2));
+		FightPause(1000);
 		return;
 	}
 
@@ -239,11 +250,11 @@ void Game::TimeToAttack() {
 
 		cout << "You attack them with your basic attack and deal " << heroDmg << " damage to " << enemy.GetName() << " " << endl;
 		enemy.TakeDamage(heroDmg);
-		this_thread::sleep_for(chrono::seconds(4));
+		FightPause(1200);
 
 		cout << endl;
 		cout << "Now " << enemy.GetName() << " has " << enemy.GetHealth() << " health left" << endl;
-		this_thread::sleep_for(chrono::seconds(3));
+		FightPause(1000);
 	}
 	else if (actionChoice > 1) {
 		Attack& chosenAttack = chosenPlayer.GetCharacterAttacks().GetAttackRef(actionChoice);
@@ -258,18 +269,18 @@ void Game::TimeToAttack() {
 		else if (enemyPleads && enemy.GetHealth() <= 15) {
 			if (youSpare) {
 				cout << endl;
-				this_thread::sleep_for(chrono::seconds(2));
+				FightPause(1000);
 				cout << "You tell " << enemy.GetName() << ", 'Don't worry, it was never that serious to begin with'" << endl;
 			}
 			else {
 				cout << endl;
-				this_thread::sleep_for(chrono::seconds(2));
+				FightPause(1000);
 				cout << "You say to " << enemy.GetName() << ", 'Really bruh'" << endl;
 			}
 		}
 		else {
 			if (actionChoice == chosenPlayer.GetTotalAttacksCount() && chosenPlayer.GetHealth() <= 15) {
-				this_thread::sleep_for(chrono::seconds(2));
+				FightPause(1000);
 				cout << "You plead to " << enemy.GetName() << " hoping for a second chance at life." << endl;
 				youPlead = true;
 			}
@@ -278,16 +289,16 @@ void Game::TimeToAttack() {
 				heroDmg = chosenAttack.CalculateDamage();
 
 				if (chosenAttack.WasMiss()) {
-					this_thread::sleep_for(chrono::seconds(1));
+					FightPause(500);
 					cout << "You try the " << chosenAttack.GetAttackName() << " but... MISS!" << endl;
-					this_thread::sleep_for(chrono::seconds(2));
+					FightPause(800);
 				}
 				else {
-					this_thread::sleep_for(chrono::seconds(1));
+					FightPause(500);
 					if (chosenAttack.WasCrit()) {
 						cout << endl;
 						cout << "\t*** CRITICAL HIT! ***" << endl;
-						this_thread::sleep_for(chrono::seconds(1));
+						FightPause(800);
 					}
 					cout << "You do the " << chosenAttack.GetAttackName() << " -> " << chosenAttack.GetAttackDesc() << " and deal " << heroDmg << " damage to " << enemy.GetName() << " " << endl;
 					enemy.TakeDamage(heroDmg);
@@ -298,12 +309,12 @@ void Game::TimeToAttack() {
 						if (effectRoll < 60) {
 							cout << "\t* " << enemy.GetName() << " is afflicted with " << chosenAttack.GetStatusEffect() << "! *" << endl;
 							enemy.ApplyStatusEffect(chosenAttack.GetStatusEffect(), chosenAttack.GetStatusDuration(), chosenAttack.GetStatusDamagePerTurn());
-							this_thread::sleep_for(chrono::seconds(1));
+							FightPause(800);
 						}
 					}
 
 					cout << endl;
-					this_thread::sleep_for(chrono::seconds(3));
+					FightPause(1200);
 					cout << "Now " << enemy.GetName() << " has " << enemy.GetHealth() << " health left" << endl;
 				}
 
@@ -321,7 +332,7 @@ void Game::TimeToAttack() {
 		}
 	}
 	else {
-		this_thread::sleep_for(chrono::seconds(1));
+		FightPause(500);
 		cout << "You do nothing" << endl;
 	}
 	cout << endl;
@@ -346,12 +357,12 @@ void Game::EnemyAttacks() {
 		if (attackChoice == 1) {
 			int enemyDmg = enemy.GetAttackDamage();
 			cout << enemy.GetName() << " hits you with their default and deals " << enemyDmg << " damage" << endl;
-			this_thread::sleep_for(chrono::seconds(4));
+			FightPause(1200);
 			cout << endl;
 
 			chosenPlayer.TakeDamage(enemyDmg);
 			cout << "You now have " << chosenPlayer.GetHealth() << " health left" << endl;
-			this_thread::sleep_for(chrono::seconds(3));
+			FightPause(1000);
 		}
 		else if (attackChoice == 2) {
 			cout << enemy.GetName() << " runs..." << endl;
@@ -363,14 +374,14 @@ void Game::EnemyAttacks() {
 				cout << enemy.GetName() << " spares you and says: '";
 				WriteSentenceNoEndl("I never intended to kill you in the first place");
 				cout << "'" << endl;
-				this_thread::sleep_for(chrono::seconds(4));
+				FightPause(1500);
 			}
 			else {
 				cout << endl;
 				cout << enemy.GetName() << " says: '";
 				WriteSentenceNoEndl("WOMP WOMP...");
 				cout << "'" << endl;
-				this_thread::sleep_for(chrono::seconds(3));
+				FightPause(1000);
 			}
 		}
 		else {
@@ -379,16 +390,16 @@ void Game::EnemyAttacks() {
 
 			if (enemyAttack.WasMiss()) {
 				cout << enemy.GetName() << " tries " << enemyAttack.GetAttackName() << " but... MISS!" << endl;
-				this_thread::sleep_for(chrono::seconds(2));
+				FightPause(800);
 			}
 			else {
 				if (enemyAttack.WasCrit()) {
 					cout << endl;
 					cout << "\t*** " << enemy.GetName() << " lands a CRITICAL HIT! ***" << endl;
-					this_thread::sleep_for(chrono::seconds(1));
+					FightPause(500);
 				}
 				cout << enemy.GetName() << " attacks you with " << enemyAttack.GetAttackName() << " -> " << enemyAttack.GetAttackDesc() << " and deals " << enemyDmg << " damage" << endl;
-				this_thread::sleep_for(chrono::seconds(3));
+				FightPause(1200);
 				cout << endl;
 
 				chosenPlayer.TakeDamage(enemyDmg);
@@ -399,12 +410,12 @@ void Game::EnemyAttacks() {
 					if (effectRoll < 60) {
 						cout << "\t* You are afflicted with " << enemyAttack.GetStatusEffect() << "! *" << endl;
 						chosenPlayer.ApplyStatusEffect(enemyAttack.GetStatusEffect(), enemyAttack.GetStatusDuration(), enemyAttack.GetStatusDamagePerTurn());
-						this_thread::sleep_for(chrono::seconds(1));
+						FightPause(800);
 					}
 				}
 
 				cout << "Now you have " << chosenPlayer.GetHealth() << " health left" << endl;
-				this_thread::sleep_for(chrono::seconds(3));
+				FightPause(1000);
 			}
 
 			// Put attack on cooldown
@@ -416,21 +427,21 @@ void Game::EnemyAttacks() {
 		cout << endl << endl << endl;
 		cout << enemy.GetName() << " Pleads to you and you spare them" << endl;
 		cout << endl;
-		this_thread::sleep_for(chrono::seconds(2));
+		FightPause(1000);
 		cout << endl;
 		cout << endl;
 		cout << "You decide to spare who was once considered your enemy" << endl;
 		cout << endl;
-		this_thread::sleep_for(chrono::seconds(4));
+		FightPause(1500);
 		cout << endl;
 		cout << "    * " << enemy.GetName() << " Is forever grateful for your mercy" << endl;
-		this_thread::sleep_for(chrono::seconds(3));
+		FightPause(1200);
 	}
 	else if (enemyPleads && !youSpare) {
 		cout << endl << endl << endl;
 		cout << endl << endl << endl;
 		cout << enemy.GetName() << " falls down and cries" << endl;
-		this_thread::sleep_for(chrono::seconds(2));
+		FightPause(1000);
 	}
 
 	cout << endl;
@@ -481,11 +492,11 @@ int Game::ChooseEnemyAttack(Player& attacker, Player& target) {
 
 void Game::Waiting() {
 	cout << endl;
-	this_thread::sleep_for(chrono::milliseconds(400));
+	FightPause(300);
 	cout << "..";
-	this_thread::sleep_for(chrono::milliseconds(400));
+	FightPause(300);
 	cout << "..";
-	this_thread::sleep_for(chrono::milliseconds(400));
+	FightPause(300);
 	cout << "..";
 	cout << endl << endl;
 }
@@ -509,20 +520,20 @@ void Game::SpaceMed() {
 }
 
 void Game::EnemyInDisdainLevel1() {
-	this_thread::sleep_for(chrono::seconds(1));
+	FightPause(500);
 	cout << endl;
 	cout << endl;
 	cout << "   * " << enemy.GetName() << " Is losing enough health to question the fight" << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	FightPause(1500);
 
 }
 
 void Game::EnemyInDisdainLevel2() {
-	this_thread::sleep_for(chrono::seconds(1));
+	FightPause(500);
 	cout << endl;
 	cout << "   * " << enemy.GetName() << " says he gives up. WILL YOU SPARE HIM???" << endl;
 	cout << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	FightPause(1500);
 	cout << "YES (1), NO (0): ";
 
 	int decision;
@@ -540,10 +551,10 @@ void Game::WriteSentenceNoEndl(string sentence) {
 		cout << sentence.at(i);
 
 		if (i % 21 == 0) {
-			this_thread::sleep_for(chrono::milliseconds(700));
+			this_thread::sleep_for(chrono::milliseconds(300));
 		}
 		else {
-			this_thread::sleep_for(chrono::milliseconds(150));
+			this_thread::sleep_for(chrono::milliseconds(50));
 		}
 	}
 }
@@ -560,7 +571,7 @@ bool Game::StoryModeFight(Player PlayerCharacter, Player EnemyChar) {
 			// Process status effects
 			PlayerCharacter.ProcessStatusEffects();
 			if (PlayerCharacter.GetHealth() <= 0) break;
-			if (PlayerCharacter.IsStunned()) { playersTurn = !playersTurn; this_thread::sleep_for(chrono::seconds(1)); continue; }
+			if (PlayerCharacter.IsStunned()) { playersTurn = !playersTurn; FightPause(1000); continue; }
 			PlayerCharacter.TickAllCooldowns();
 
 			cout << "It's " << PlayerCharacter.GetName() << "'s turn.\n";
@@ -606,7 +617,7 @@ bool Game::StoryModeFight(Player PlayerCharacter, Player EnemyChar) {
 			// Process status effects
 			EnemyChar.ProcessStatusEffects();
 			if (EnemyChar.GetHealth() <= 0) break;
-			if (EnemyChar.IsStunned()) { playersTurn = !playersTurn; this_thread::sleep_for(chrono::seconds(1)); continue; }
+			if (EnemyChar.IsStunned()) { playersTurn = !playersTurn; FightPause(1000); continue; }
 			EnemyChar.TickAllCooldowns();
 
 			cout << "It's " << EnemyChar.GetName() << "'s turn.\n";
@@ -641,7 +652,7 @@ bool Game::StoryModeFight(Player PlayerCharacter, Player EnemyChar) {
 		}
 
 		playersTurn = !playersTurn;
-		this_thread::sleep_for(chrono::seconds(1));
+		FightPause(1000);
 	}
 
 	cout << "\nFight ended.\n";
@@ -658,7 +669,7 @@ bool Game::StoryModeFight(Player PlayerCharacter, Player EnemyChar) {
 
 bool Game::BossFight(Player& hero, Player& boss, bool lightningAbsorbed) {
 	cout << "Starting fight between " << hero.GetName() << " and " << boss.GetName() << "\n";
-	this_thread::sleep_for(chrono::seconds(2));
+	FightPause(1500);
 	bool playersTurn = true;
 
 	while (hero.GetHealth() > 0 && boss.GetHealth() > 0) {
@@ -674,7 +685,7 @@ bool Game::BossFight(Player& hero, Player& boss, bool lightningAbsorbed) {
 		if (playersTurn) {
 			hero.ProcessStatusEffects();
 			if (hero.GetHealth() <= 0) break;
-			if (hero.IsStunned()) { playersTurn = !playersTurn; this_thread::sleep_for(chrono::seconds(1)); continue; }
+			if (hero.IsStunned()) { playersTurn = !playersTurn; FightPause(1000); continue; }
 			hero.TickAllCooldowns();
 
 			cout << "Your turn.\n";
@@ -711,7 +722,7 @@ bool Game::BossFight(Player& hero, Player& boss, bool lightningAbsorbed) {
 							if (atk.WasCrit()) cout << "\t*** CRITICAL HIT! ***\n";
 							cout << hero.GetName() << " uses " << atk.GetAttackName() << " for " << dmg << " damage!\n";
 							cout << "\t* The Voidstorm ABSORBS your lightning! It barely felt that! *\n";
-							this_thread::sleep_for(chrono::seconds(2));
+							FightPause(1500);
 						}
 						else {
 							if (atk.WasCrit()) cout << "\t*** CRITICAL HIT! ***\n";
@@ -731,7 +742,7 @@ bool Game::BossFight(Player& hero, Player& boss, bool lightningAbsorbed) {
 		else {
 			boss.ProcessStatusEffects();
 			if (boss.GetHealth() <= 0) break;
-			if (boss.IsStunned()) { playersTurn = !playersTurn; this_thread::sleep_for(chrono::seconds(1)); continue; }
+			if (boss.IsStunned()) { playersTurn = !playersTurn; FightPause(1000); continue; }
 			boss.TickAllCooldowns();
 
 			cout << boss.GetName() << "'s turn.\n";
@@ -768,7 +779,7 @@ bool Game::BossFight(Player& hero, Player& boss, bool lightningAbsorbed) {
 		}
 
 		playersTurn = !playersTurn;
-		this_thread::sleep_for(chrono::seconds(2));
+		FightPause(1200);
 	}
 
 	cout << "\n";

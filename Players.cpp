@@ -1,4 +1,5 @@
 #include "Players.h"
+#include "Game.h"
 #include <chrono>
 #include <thread>
 
@@ -283,6 +284,6 @@ vector<Player> Players::GetPlayers() {
 void Players::PrintCharacterInfo() {
 	for (int i = 0; i < characters.size() - 1; i++) {
 		characters.at(i).ShowPlayerInfo();
-		this_thread::sleep_for(chrono::seconds(2));
+		Game::FightPause(1000);
 	}
 }

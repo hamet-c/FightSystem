@@ -2,9 +2,13 @@
 #define TEXT_BASED_GAME_H
 
 #include "Players.h"
+#include <chrono>
+#include <thread>
 
 class Game {
 public:
+	static void FightPause(int ms);
+	static void NarratePause(const string& text, int extraMs = 0);
 	Game();
 	Game(int fightingRounds);
 	Game(vector<Player> heroesList, vector<Player> villainsList, int fightingRounds = 4);

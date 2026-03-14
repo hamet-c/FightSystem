@@ -1,4 +1,5 @@
 #include "FinalBoss.h"
+#include "Game.h"
 #include <iostream>
 #include <chrono>
 #include <thread>
@@ -136,76 +137,76 @@ void NarrateReveal(Game& game, Player& hero) {
 	game.SpaceMax();
 	game.WriteSentenceNoEndl("Shadow Being: You have proven your worthiness, hero.");
 	cout << endl;
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::FightPause(500);
 	game.WriteSentenceNoEndl("Shadow Being: But the trial was merely preparation for what awaits.");
 	cout << endl << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::FightPause(500);
 
 	cout << "*The Shadow Being's form flickers, and for the first time you see fear in its void-like face*" << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::NarratePause("The Shadow Being's form flickers, and for the first time you see fear in its void-like face", 500);
 	cout << endl;
 
 	game.WriteSentenceNoEndl("Shadow Being: There is an ancient entity... older than me, older than the storms themselves.");
 	cout << endl;
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::FightPause(500);
 	game.WriteSentenceNoEndl("Shadow Being: It is called The Voidstorm -- the Eater of Storms.");
 	cout << endl;
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::FightPause(500);
 	game.WriteSentenceNoEndl("Shadow Being: For millennia it has been sealed away, feeding on the electrical energy of the world.");
 	cout << endl;
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::FightPause(500);
 	game.WriteSentenceNoEndl("Shadow Being: But the seal is breaking. It will consume all lightning, all storms, all life.");
 	cout << endl << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::FightPause(500);
 
 	cout << hero.GetName() << ": Then I'll stop it. I have the power of Kael Thunderborn--" << endl;
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::NarratePause("Then I'll stop it. I have the power of Kael Thunderborn--");
 	cout << endl;
 
 	game.WriteSentenceNoEndl("Shadow Being: FOOL. That is precisely why YOU are in danger.");
 	cout << endl;
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::FightPause(500);
 	game.WriteSentenceNoEndl("Shadow Being: The Voidstorm FEEDS on lightning. Your ancestor's power... is its food.");
 	cout << endl;
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::FightPause(500);
 	game.WriteSentenceNoEndl("Shadow Being: You must find another way. Adapt. Evolve. Or perish.");
 	cout << endl << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::FightPause(500);
 
 	cout << "*The Shadow Being strikes the ground. A massive rift tears open in the cave wall.*" << endl;
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::NarratePause("The Shadow Being strikes the ground. A massive rift tears open in the cave wall.", 500);
 	cout << "*Through it, you see a sky of pure darkness, crackling with stolen lightning.*" << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::NarratePause("Through it, you see a sky of pure darkness, crackling with stolen lightning.", 500);
 	cout << endl;
 
 	game.WriteSentenceNoEndl("Shadow Being: Go now. The Voidstorm awaits at the heart of the storm.");
 	cout << endl;
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::FightPause(500);
 	game.WriteSentenceNoEndl("Shadow Being: Remember -- lightning alone will not save you.");
 	cout << endl << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::FightPause(500);
 
 	game.SpaceMax();
 
 	cout << "*You step through the rift...*" << endl;
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::NarratePause("You step through the rift...", 500);
 	cout << "*The air is thick with static. The ground trembles beneath your feet.*" << endl;
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::NarratePause("The air is thick with static. The ground trembles beneath your feet.");
 	cout << "*Before you stands a massive swirling vortex of darkness and captured lightning.*" << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::NarratePause("Before you stands a massive swirling vortex of darkness and captured lightning.", 500);
 	cout << endl;
 
 	cout << "???: You... you carry the scent of storms." << endl;
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::NarratePause("You... you carry the scent of storms.");
 	cout << "???: How DELICIOUS." << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::NarratePause("How DELICIOUS.", 500);
 	cout << endl;
 
 	cout << "*The vortex coalesces into a towering humanoid figure crackling with absorbed lightning*" << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::NarratePause("The vortex coalesces into a towering humanoid figure crackling with absorbed lightning", 500);
 	cout << endl;
 	cout << "THE VOIDSTORM: Come, little spark. Let me CONSUME you." << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::NarratePause("Come, little spark. Let me CONSUME you.", 500);
 	cout << endl;
 }
 
@@ -213,13 +214,13 @@ void NarrateEvolution(Game& game, Player& hero, int weaponChoice) {
 	game.SpaceMax();
 
 	cout << "*The Voidstorm collapses... then begins to reform, darker and more powerful than before*" << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::NarratePause("The Voidstorm collapses... then begins to reform, darker and more powerful than before", 500);
 	cout << endl;
 
 	cout << "THE VOIDSTORM: Impressive... but you cannot kill what feeds on the storm." << endl;
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::NarratePause("Impressive... but you cannot kill what feeds on the storm.");
 	cout << "THE VOIDSTORM: Every bolt you throw only makes me STRONGER." << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::NarratePause("Every bolt you throw only makes me STRONGER.", 500);
 	cout << endl;
 
 	if (weaponChoice == 1) {
@@ -228,26 +229,26 @@ void NarrateEvolution(Game& game, Player& hero, int weaponChoice) {
 	else {
 		cout << "*You feel your Sky Piercers vibrating in your hands*" << endl;
 	}
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::NarratePause("You feel your weapon vibrating in your hands");
 
 	cout << "*A voice echoes in your mind -- the voice of Kael Thunderborn*" << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::NarratePause("A voice echoes in your mind -- the voice of Kael Thunderborn", 500);
 	cout << endl;
 
 	game.WriteSentenceNoEndl("Kael: Descendant... lightning is but ONE face of the storm.");
 	cout << endl;
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::FightPause(500);
 	game.WriteSentenceNoEndl("Kael: The storm is wind. The storm is pressure. The storm is fury itself.");
 	cout << endl;
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::FightPause(500);
 	game.WriteSentenceNoEndl("Kael: Do not fight WITH the lightning. Fight with the STORM.");
 	cout << endl << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::FightPause(500);
 
 	cout << "*Your weapon begins to transform*" << endl;
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::NarratePause("Your weapon begins to transform", 500);
 	cout << "*The crackling electricity fades, replaced by howling winds and crushing pressure*" << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::NarratePause("The crackling electricity fades, replaced by howling winds and crushing pressure", 500);
 	cout << endl;
 
 	if (weaponChoice == 1) {
@@ -256,23 +257,23 @@ void NarrateEvolution(Game& game, Player& hero, int weaponChoice) {
 	else {
 		cout << "*Sky Piercers become STORMBREAKER BLADES -- daggers trailing cyclone vortexes*" << endl;
 	}
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::NarratePause("Your weapon has transformed", 500);
 	cout << endl;
 
 	cout << hero.GetName() << ": I understand now. I am not just a wielder of lightning." << endl;
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::NarratePause("I understand now. I am not just a wielder of lightning.");
 	cout << hero.GetName() << ": I am the STORM." << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::NarratePause("I am the STORM.", 500);
 	cout << endl;
 
 	cout << "*New abilities unlocked!*" << endl;
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::NarratePause("New abilities unlocked!");
 	cout << endl;
 
 	cout << "THE VOIDSTORM: What... what is this? This power... it is not lightning!" << endl;
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::NarratePause("What... what is this? This power... it is not lightning!");
 	cout << "THE VOIDSTORM: No matter. I will CRUSH you regardless!" << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::NarratePause("No matter. I will CRUSH you regardless!", 500);
 	cout << endl;
 }
 
@@ -280,68 +281,68 @@ void NarrateVictory(Game& game, Player& hero) {
 	game.SpaceMax();
 
 	cout << "*The Voidstorm lets out a deafening shriek as your final blow connects*" << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::NarratePause("The Voidstorm lets out a deafening shriek as your final blow connects", 500);
 	cout << endl;
 
 	cout << "THE VOIDSTORM: IMPOSSIBLE... the storm... was supposed to be MINE..." << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::NarratePause("IMPOSSIBLE... the storm... was supposed to be MINE...", 500);
 	cout << endl;
 
 	cout << "*The entity begins to dissolve, the stolen lightning dispersing back into the sky*" << endl;
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::NarratePause("The entity begins to dissolve, the stolen lightning dispersing back into the sky");
 	cout << "*The darkness recedes. For the first time, you see sunlight breaking through the clouds.*" << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::NarratePause("The darkness recedes. For the first time, you see sunlight breaking through the clouds.", 500);
 	cout << endl;
 
 	cout << "*You fall to your knees, exhausted but alive.*" << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::NarratePause("You fall to your knees, exhausted but alive.", 500);
 	cout << endl;
 
 	cout << "*The rift reopens. The Shadow Being steps through.*" << endl;
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::NarratePause("The rift reopens. The Shadow Being steps through.");
 	cout << endl;
 
 	game.WriteSentenceNoEndl("Shadow Being: ...You did it.");
 	cout << endl;
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::FightPause(500);
 	game.WriteSentenceNoEndl("Shadow Being: You have done what even Kael Thunderborn could not.");
 	cout << endl;
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::FightPause(500);
 	game.WriteSentenceNoEndl("Shadow Being: You did not just wield the storm -- you BECAME it.");
 	cout << endl << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::FightPause(500);
 
 	cout << hero.GetName() << ": I had help. From Kael. From you." << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::NarratePause("I had help. From Kael. From you.", 500);
 	cout << endl;
 
 	game.WriteSentenceNoEndl("Shadow Being: The world is safe once more. The storms will return to their natural state.");
 	cout << endl;
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::FightPause(500);
 	game.WriteSentenceNoEndl("Shadow Being: And you... you are no longer just a descendant.");
 	cout << endl;
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::FightPause(500);
 	game.WriteSentenceNoEndl("Shadow Being: You are the new Thunderborn. No -- you are something greater.");
 	cout << endl;
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::FightPause(500);
 	game.WriteSentenceNoEndl("Shadow Being: You are the Stormborn.");
 	cout << endl << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::FightPause(500);
 
 	cout << "*The Shadow Being bows -- something you never thought you'd see.*" << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::NarratePause("The Shadow Being bows -- something you never thought you'd see.", 500);
 	cout << endl;
 
 	game.WriteSentenceNoEndl("Shadow Being: Go now, Stormborn. The world awaits its hero.");
 	cout << endl << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::FightPause(500);
 
 	cout << "*You step back through the rift, into the sunlight.*" << endl;
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::NarratePause("You step back through the rift, into the sunlight.", 500);
 	cout << "*The storms above you part, and for the first time in what feels like forever...*" << endl;
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::NarratePause("The storms above you part, and for the first time in what feels like forever...");
 	cout << "*There is peace.*" << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::NarratePause("There is peace.", 500);
 
 	cout << endl << endl;
 	cout << "              === THE END ===" << endl;
@@ -353,17 +354,17 @@ void NarrateDefeat(Game& game) {
 	game.SpaceMax();
 
 	cout << "*Your vision fades as The Voidstorm's power overwhelms you*" << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::NarratePause("Your vision fades as The Voidstorm's power overwhelms you", 500);
 	cout << endl;
 
 	cout << "THE VOIDSTORM: Another spark... extinguished." << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::NarratePause("Another spark... extinguished.", 500);
 	cout << endl;
 
 	cout << "*The world goes dark.*" << endl;
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::NarratePause("The world goes dark.", 500);
 	cout << "*The storms rage on, unchecked, eternal.*" << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::NarratePause("The storms rage on, unchecked, eternal.", 500);
 
 	cout << endl << endl;
 	cout << "              === GAME OVER ===" << endl;
@@ -380,14 +381,14 @@ void FinalBossSequence(Game& game, Player& hero, int weaponChoice) {
 
 	cout << "=== PHASE 1: THE STORM DEVOURER ===" << endl;
 	cout << "WARNING: Your lightning attacks will be absorbed!" << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::FightPause(2000);
 	cout << endl;
 
 	// Show hero's current attacks
 	cout << "Your current attacks:" << endl;
 	cout << "1) Default attack (damage: " << hero.GetAttackDamage() << ")" << endl;
 	hero.ShowAttacksInfo();
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::FightPause(1500);
 
 	bool phase1Win = game.BossFight(hero, boss1, true); // lightning absorbed
 
@@ -406,14 +407,14 @@ void FinalBossSequence(Game& game, Player& hero, int weaponChoice) {
 	cout << "Your evolved attacks:" << endl;
 	cout << "1) Default attack (damage: " << hero.GetAttackDamage() << ")" << endl;
 	hero.ShowAttacksInfo();
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::FightPause(2000);
 
 	// Heal hero to 80% for Phase 2
 	int healTo = (int)(hero.GetMaxHealth() * 0.8);
 	hero.AssignPlayerHealth(healTo);
 	hero.ClearStatusEffects();
 	cout << "Your health has been restored to " << hero.GetHealth() << " HP." << endl;
-	this_thread::sleep_for(chrono::seconds(2));
+	Game::FightPause(1500);
 
 	// Phase 2: Fight the Voidstorm Unleashed
 	Player boss2 = CreateVoidstormPhase2();
@@ -421,7 +422,7 @@ void FinalBossSequence(Game& game, Player& hero, int weaponChoice) {
 	game.SpaceMax();
 	cout << "=== PHASE 2: VOIDSTORM UNLEASHED ===" << endl;
 	cout << "Your evolved attacks bypass the Voidstorm's absorption!" << endl;
-	this_thread::sleep_for(chrono::seconds(3));
+	Game::FightPause(2000);
 	cout << endl;
 
 	bool phase2Win = game.BossFight(hero, boss2, false); // lightning no longer absorbed

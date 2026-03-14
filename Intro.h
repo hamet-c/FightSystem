@@ -13,7 +13,7 @@
         cout << "And your head is bleeding..." << endl;
         cout << "When you finally come to your senses you see a giant creature with a cloak standing in front of you." << endl
         << endl << endl << endl;
-        this_thread::sleep_for(chrono::seconds(5));
+        Game::NarratePause("When you finally come to your senses you see a giant creature with a cloak standing in front of you.", 500);
 
         cout << "                                         .""--..__" << endl;
         cout << "                     _                     []       ``-.._" << endl;
@@ -51,24 +51,24 @@
         cout << "/`                            |        ||    " << endl;
         cout << "`-.___,-.      .-.        ___,'        (/    " << endl;
         cout << "         `---'`   `'----'`";
-        this_thread::sleep_for(chrono::seconds(2));
+        Game::FightPause(1500);
         space.SpaceMax();
         cout << "You look at it and where its face should be, there is only darkness as well as a eerie feeling as you stare into it." << endl;
         cout << "Its so large that you have to look straight up to even see its head." << endl;
-        this_thread::sleep_for(chrono::seconds(3));
+        Game::NarratePause("Its so large that you have to look straight up to even see its head.");
         cout << "Finally it speaks in a bellowing voice that seems to echo through the entire dungeon" << endl;
         cout << "Its voice sends chills down your spine..." << endl << endl;
-        this_thread::sleep_for(chrono::seconds(2));
+        Game::NarratePause("Its voice sends chills down your spine...");
         cout << "Shadow Being: Welcome " << name << " I was wondering when you would wake up." << endl;
-        this_thread::sleep_for(chrono::seconds(2));
+        Game::NarratePause("Shadow Being: Welcome I was wondering when you would wake up.");
         cout << name << ": Who... who are you? Where am I!" << endl;
-        this_thread::sleep_for(chrono::seconds(2));
+        Game::NarratePause("Who... who are you? Where am I!");
         cout << "Shadow Being: Silence. You have been chosen for a great purpose." << endl;
         cout << name << ": Chosen? For what?" << endl << endl;
-        this_thread::sleep_for(chrono::seconds(2));
+        Game::NarratePause("Chosen? For what?");
         cout << "You are the descendant of the ancient hero who once saved this world from destruction. Kael Thunderborn" << endl;
         cout << "And now it is your turn to save the world from the impending doom that is awaiting.\n But first you must prove yourself worthy." << endl << endl;
-        this_thread::sleep_for(chrono::seconds(2));
+        Game::NarratePause("And now it is your turn to save the world from the impending doom that is awaiting. But first you must prove yourself worthy.");
         cout << "*The creature hits the ground with its staff, you fall over from the shaking of the ground but 2 pedestals rise from the ground, So bright that you would think they are the sun itself*" << endl;
         cout << "Shadow Being: On each pedestal lies a weapon from your ancestor. Choose wisely " << name << "." << endl << endl << endl;
         int weaponChosen = WeaponChoice();
@@ -79,7 +79,7 @@
         else {
             cout << "Shadow Being: The Sky Piercers, swift and deadly. An excellent choice." << endl;
         }
-        this_thread::sleep_for(chrono::seconds(2));
+        Game::NarratePause("Shadow Being: A fine choice indeed.");
 
         return weaponChosen;
     }
